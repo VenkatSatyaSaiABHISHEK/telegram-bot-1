@@ -140,10 +140,12 @@ async def handle_home(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 # --- Main ---
 def main():
-    import os
-TOKEN = os.getenv("BOT_TOKEN")
-app = ApplicationBuilder().token(TOKEN).build()
+    TOKEN = os.getenv("BOT_TOKEN")
+    if not TOKEN:
+        print("❌ Error: BOT_TOKEN not found in environment variables.")
+        return
 
+    app = ApplicationBuilder().token(TOKEN).build()
 
     app.add_handler(CommandHandler("start", start))
     app.add_handler(CallbackQueryHandler(button_handler, pattern="^(convert|help|settings)$"))
