@@ -140,7 +140,11 @@ async def handle_home(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 # --- Main ---
 def main():
-    app = ApplicationBuilder().token("7802043771:AAG6825wh5uTLP0PK4VhyQsnwOpYfpgwSF0").build()
+    import os
+TOKEN = os.getenv("BOT_TOKEN")
+app = ApplicationBuilder().token(TOKEN).build()
+
+
     app.add_handler(CommandHandler("start", start))
     app.add_handler(CallbackQueryHandler(button_handler, pattern="^(convert|help|settings)$"))
     app.add_handler(CallbackQueryHandler(format_selection, pattern="^(docx|pdf)$"))
